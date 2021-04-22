@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
 import 'package:somiti/Pages/HomePages.dart';
 import 'package:somiti/Variables/Variables.dart';
+import 'package:somiti/Widgets/myDrawer.dart';
 
 
 class FormPage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<FormPage> {
       appBar: AppBar(
         title: Text("FormPage"),
       ),
+      drawer: MyDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

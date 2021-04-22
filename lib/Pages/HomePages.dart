@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:somiti/Variables/Variables.dart';
 import 'package:somiti/Widgets/SummaryWidget.dart';
 import 'package:intl/intl.dart';
+import 'package:somiti/Widgets/myDrawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,18 +21,19 @@ class _HomePageState extends State<HomePage> {
           "HomePage"
         ),
       ),
+      drawer: MyDrawer(),
       body: ListView(
         children: [
 
           SummaryWidget(
 
             income: Variables.depositAmount,
-            expense: 100,
+            expense: Variables.expenseAmount,
           ),
 
           StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("SomitiMember")
+                  .collection("Expense")
                   .snapshots(),
               builder: (context, snapshot) {
                 return ListView.builder(
@@ -45,9 +47,9 @@ class _HomePageState extends State<HomePage> {
 
                     DateTime date = documentSnapshot
                         .data()["date"].toDate();
-                   var newDate = DateFormat.yMMMd().format(date);
+                    var newDate = DateFormat.yMMMd().format(date);
                     print(
-                        "${documentSnapshot.data()["memberAmount"]} VIIIIIVVVIIII");
+                        "${documentSnapshot.data()["amount"]} VIIIIIVVVIIII");
 
 
 
@@ -74,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
-                                   "Expense",
+                                    "Expense",
                                     style: TextStyle(fontWeight: FontWeight.w300),
                                   )
                                 ],
@@ -89,12 +91,12 @@ class _HomePageState extends State<HomePage> {
 
                                 ),
                                 title: Text(documentSnapshot
-                                                  .data()["memberName"]
-                                                   .toString()),
+                                    .data()["memo"]
+                                    .toString()),
                                 trailing:
-                                     Text(documentSnapshot
-                                                      .data()["memberAmount"]
-                                                      .toString()),
+                                Text(documentSnapshot
+                                    .data()["amount"]
+                                    .toString()),
                               )
                             ],
                           ),

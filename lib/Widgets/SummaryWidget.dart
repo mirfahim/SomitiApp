@@ -60,7 +60,8 @@ class SummaryWidget extends StatelessWidget {
                   ),
                   UIHelper.verticalSpaceSmall(),
                   Text((income - expense).toString(),
-                      style: summaryNumberTextStyle)
+                      style: income > expense ?TextStyle( color: Colors.black, fontSize: 18, fontWeight:FontWeight.bold)
+                          : TextStyle(color: Colors.red,fontSize: 18, fontWeight:FontWeight.bold))
                 ],
               ),
             ],
