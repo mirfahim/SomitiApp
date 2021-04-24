@@ -10,9 +10,13 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
+  var selectDoc;
+  var selectIndex;
+  var docID = "DepositDoc";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70,
       appBar: AppBar(
         centerTitle: true,
         title: Text("Total:${Variables.depositAmount}"),
@@ -20,7 +24,10 @@ class _DepositState extends State<Deposit> {
       drawer: MyDrawer(),
       body:  StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("SomitiMember")
+          .collection("KaziFarm")
+          .doc(docID)
+              .collection("Deposit")
+              .orderBy('date', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             return ListView.builder(
@@ -43,15 +50,14 @@ class _DepositState extends State<Deposit> {
                 return Card(
                   child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, "details", arguments: "")
-                          .then((value) => {
-                        if (value != null)
-                          {
-                            if (value) {}
-                          }
+                      setState(() {
+                        selectDoc = documentSnapshot.id;
+                        selectIndex = index;
                       });
+
                     },
                     child: Container(
+                      color: selectIndex ==  index ? Colors.blue : Colors.white,
                       padding: EdgeInsets.all(8),
                       child: Column(
                         children: <Widget>[

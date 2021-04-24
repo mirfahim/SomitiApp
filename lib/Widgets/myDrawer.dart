@@ -2,13 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:somiti/Pages/ExpenseCategory.dart';
-import 'package:somiti/Pages/FormPage.dart';
+import 'package:somiti/Pages/Admin/ExpenseForm.dart';
+import 'package:somiti/Pages/Admin/DepositFormPage.dart';
+import 'package:somiti/Pages/ExpenseList.dart';
 import 'package:somiti/Pages/HomePages.dart';
 import 'package:somiti/Pages/depostList.dart';
 
+import 'Alert_popup/DepositPoppup.dart';
+import 'Alert_popup/AdminPassPopup.dart';
+
 
 class MyDrawer extends StatelessWidget {
+
+  int pass = 123456;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -36,13 +42,15 @@ class MyDrawer extends StatelessWidget {
                 children: [
                   ListTile(
                     leading: Icon(Icons.home, color: Colors.black,),
-                    title: Text("FormPage", style: TextStyle(color: Colors.black
-                      , ),),
+                    title: Text("Home", style: TextStyle(color: Colors.black, ),),
                     onTap: (){
-                      Route route = MaterialPageRoute(builder: (c) => FormPage());
+
+                      Route route = MaterialPageRoute(builder: (c) => HomePage());
                       Navigator.pushReplacement(context, route);
                     },
                   ),
+                  Divider(height: 10,color: Colors.white,thickness: 6.0,),
+
                   Divider(height: 10,color: Colors.white,thickness: 6.0,),
                   ListTile(
                     leading: Icon(Icons.dashboard, color: Colors.black,),
@@ -52,26 +60,32 @@ class MyDrawer extends StatelessWidget {
                       Navigator.pushReplacement(context, route);
                     },
                   ),
+
                   Divider(height: 10,color: Colors.white,thickness: 6.0,),
                   ListTile(
-                    leading: Icon(Icons.dashboard, color: Colors.black,),
-                    title: Text("Expense", style: TextStyle(color: Colors.black, ),),
+                    leading: Icon(Icons.money_off, color: Colors.black,),
+                    title: Text("Expense List", style: TextStyle(color: Colors.black, ),),
                     onTap: (){
-                      Route route = MaterialPageRoute(builder: (c) => ExpenseCategory());
-                      Navigator.pushReplacement(context, route);
+                      showDialog(
+                        context: context,
+                        builder:(_)=> ExpenseList(),
+                      );
                     },
                   ),
+
                   Divider(height: 10,color: Colors.white,thickness: 6.0,),
-
                   ListTile(
-                    leading: Icon(Icons.login_outlined, color: Colors.black,),
-                    title: Text("Home", style: TextStyle(color: Colors.black, ),),
-                    onTap: ()async{
-
-                      Route route = MaterialPageRoute(builder: (c) => HomePage());
-                      Navigator.pushReplacement(context, route);
+                    leading: Icon(Icons.admin_panel_settings_outlined, color: Colors.black,),
+                    title: Text("Admin", style: TextStyle(color: Colors.black, ),),
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder:(_)=> AdminPassPopup(),
+                      );
                     },
                   ),
+
+
                   // Divider(height: 10,color: Colors.white,thickness: 6.0,),
                   //
                   // ListTile(
